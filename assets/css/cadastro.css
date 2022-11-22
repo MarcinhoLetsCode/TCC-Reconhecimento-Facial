@@ -3,7 +3,7 @@
     grid-template-columns: 45% 55%;
     box-shadow: 0 0 10px 0 #cecece;
     width: 90%;
-    height: calc(120vh - 104px - 8rem);
+    height: calc(100vh - 60px - 2rem);
     margin: 0 auto;
 }
 
@@ -16,10 +16,12 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
 }
 
 .reconhecimento-facial__wait{
-   width: 50%;
+    position: absolute;
+    width: 50%;
 }
 
 .reconhecimento-facial__button{
@@ -71,8 +73,8 @@
     transition: transform .3s ease-in-out;
     animation: left-to-right 1s;
 }
-.cadastro__title:hover::after{
-
+#webCamera{
+    width: 100%;
 }
 
 @keyframes left-to-right{
@@ -118,7 +120,7 @@
     display: flex;
     flex-direction: column;
     align-items: left;
-    gap: .7rem;
+    gap: .2rem;
 }
 
 .dado__label{
@@ -138,7 +140,7 @@
 }
 
 .dado__input:hover{
-    cursor: pointer;
+    cursor:auto;
 }
 
 #enviar{
@@ -162,3 +164,30 @@
     font-size: 18px;
 }
 
+/*Mensagens de erro e sucesso*/
+
+.mensagem{
+
+    color: black;
+    display: none;
+}
+
+.sucess{
+    outline: 1px solid green;
+    box-shadow: 0 3px 0 -1px rgba(0, 128, 0, 0.521);
+}
+
+.sucess + .mensagem{
+    display: none;
+}
+
+.erro{
+    outline: 1px solid red;
+    box-shadow: 0 3px 0 -1px rgb(255, 0, 0);
+    
+}
+
+.erro + .mensagem{
+    display: block;
+    color: red;
+}

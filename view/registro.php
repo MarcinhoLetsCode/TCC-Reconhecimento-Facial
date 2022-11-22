@@ -1,3 +1,15 @@
+<?php
+    include "../Controller/Protect.php";
+    include ('../Controller/RegistroController.php');
+    $registroController = new RegistroController();
+
+    $res = $registroController -> pegarTodosRegistros();
+    echo "<pre>";
+    print_r($res);
+    echo "<pre>";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
