@@ -7,8 +7,9 @@ class RegistroDAO{
     function pegarTodosRegistros(){
         $pdo = conectar();
 
-        $resul = $pdo->query("select cadastroaluno.nome, cadastroaluno.rm, cadastroaluno.curso, cadastroaluno.periodo, registro.entradaSaida from CadastroAluno inner join registro on cadastroaluno.rm = registro.rm order by registro.entradaSaida Desc;");
+        $resul = $pdo->query("select cadastroaluno.nome, cadastroaluno.rm, cadastroaluno.curso, cadastroaluno.periodo, registro.entradaSaida from CadastroAluno inner join registro on cadastroaluno.rm = registro.rm order by registro.entradaSaida Desc limit 500 ;");
 
-        return ($resul->fetchall(PDO::FETCH_ASSOC));
+        return ($resul);
     }
+
 }

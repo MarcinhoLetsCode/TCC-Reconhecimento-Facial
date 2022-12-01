@@ -21,7 +21,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+<head id="A">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,26 +33,28 @@
     <link rel="stylesheet" href="../assets/css/tab_cadastro.css">
     <script src="../assets/javascript/tab.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../assets/javascript/popup.js"></script>
     <script type="text/javascript" src="../assets/javascript/camera.js"></script>
     <link rel="stylesheet" href="../assets/css/popup.css">
     <title>Reconhecimento facial - Cadastro</title>
 </head>
 <body>
+        <?php
+            if (isset($_SESSION['msgCadastro'])) {
+                echo '<div id="confirm">
+                <div class="message" id="texto">' . $_SESSION['msgCadastro'] . '</div>
+                    <button class="yes">OK</button>
+                </div>';
+                unset($_SESSION['msgCadastro']);
+            }
+            
+        ?>
+
         <header class="header-cadastro">
             <img src="../assets/imagens/logo_icon.png" alt="Logo Sistema Face ID" class="header-cadastro__image">
             <h1 class="header__title">Registros</h1>
         </header>
 
         <main class="container">
-
-            <section class="container__reconhecimento-facial">
-                <img src="../assets/imagens/logo.png" alt="Tela de aguardo" class="reconhecimento-facial__wait" id="noCamera">
-                <button class="reconhecimento-facial__button">Fazer Reconhecimento facial</button>
-                <video id="webCamera"></video>
-                <button class="reconhecimento-facial__button" onclick="loadCamera()" id="reconhecer">Fazer Reconhecimento facial</button>
-                <button class="reconhecimento-facial__button" id="capturar" style="display: none;">Capturar de Imagem</button>
-            </section>
 
             <section class="container__cadastro">
 
@@ -68,12 +70,12 @@
                 <div id="aluno" class="conteudo">
                     <div class="cadastro__header">
                         <h1 class="cadastro__title">Cadastrar</h1>
-                        <button class="cadastro__consultar">Consultar<button>
+                        <a href="consulta.php" class="cadastro__consultar">Consultar</a>
                     </div>
                     <form class="cadastro__area alunoForm" action="../Controller/CadastroAlunoController.php" method="GET">
                         <div class="area__dado">
                             <label for="nome" class="dado__label">Nome</label>
-                            <input type="text" name="nomeAluno" class="inputAluno dado__input" placeholder="Digite seu Nome:">
+                            <input type="text" name="nomeAluno" class="inputAluno dado__input" placeholder="Digite seu Nome">
                             <span class="mensagem">Preencha o campo</span>
                             <!--  -->
                             <?php
@@ -103,7 +105,7 @@
                         </div>
                         <div class="area__dado">
                             <label for="rm" class="dado__label">RM</label>
-                            <input type="text" name="rmAluno" class="inputAluno dado__input" placeholder="Digite seu RM">
+                            <input type="text" name="rmAluno" class="inputAluno dado__input" placeholder="Digite seu RM" id="rmAluno">
                             <span class="mensagem">Preencha o campo</span>
                             <!--  -->
                             <?php
@@ -165,6 +167,18 @@
                             ?>
                             <!--  -->
                         </div>
+                        <div class="area__dado">
+                            <label for="statusAluno" class="dado__label">Status</label>
+                            <select name="statusAluno" id="status-select" class="inputAluno dado__input">
+                                <option value="">Selecione o Status</option>
+                                <option value="ativ">Ativo</option>
+                                <option value="inat">Inativo</option>
+                            </select>
+                            <span class="mensagem">Preencha o campo</span>
+                            <!--  -->
+                            
+                            <!--  -->
+                        </div>
                         <input type="submit" value="Enviar" id="enviar" class="enviarAluno">
                     </form>
                 </div>
@@ -174,7 +188,7 @@
                     <!--Inicio Cadastro Funcionários-->
                     <div class="cadastro__header">
                         <h1 class="cadastro__title">Cadastrar</h1>
-                        <button class="cadastro__consultar">Consultar<button>
+                        <a href="consulta.php" class="cadastro__consultar">Consultar</a>
                     </div>
                     <form class="cadastro__area funcionarioForm"  action="../Controller/CadastroFuncionarioController.php" method="GET">
                         <div class="area__dado">
@@ -263,16 +277,48 @@
                     </form>
                 </div>
             </section>
-            <?php
-                if (isset($_SESSION['msgCadastro'])) {
-                    echo '<div id="confirm">
-                    <div class="message" id="texto">' . $_SESSION['msgCadastro'] . '</div>
-                        <button class="yes">OK</button>
-                    </div>';
-                    unset($_SESSION['msgCadastro']);
-                }
-                
-            ?>
+
+            <section class="container__reconhecimento-facial">
+            <div class="area">
+            <img style="width: 50%; margin-left: 25%" id='logoHolder' src="../assets/imagens/logo.png" alt="Logo Sistema Face ID" class="">
+                <canvas id='canvas' style="display: none; margin-left: 8%"></canvas>
+                <video autoplay="true" id="first" style="height: 300px; width: 400px; display: none; background-color:black; margin-left: 8%">
+                </video>
+                <form target="POST" method="save_photos.php">
+                    <textarea  type="text" id="base_img" name="base_img" style="display: none;"></textarea>
+                    <button class="reconhecimento-facial__button" type="button" id="recognize" onclick="reconhecer()">FAZER RECONHECIMENTO FACIAL</button>
+                    <button style="display: none;" class="reconhecimento-facial__button" type="button" id="active" onclick="loadCameraOne(active)">Primeira Foto</button>
+                    <button style="display: none;" class="reconhecimento-facial__button" type="button" id="take" onclick="takeSnapShot(take)">Tirar foto</button>
+                    <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 2%; left: 3.4rem;" class="reconhecimento-facial__button" type="button" id="save" onclick="saveSnapShot(save, A)"> salvar</button>
+                    <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 35%;" class="reconhecimento-facial__button" type="button" id="again" onclick="retakeSnapShot(again)"> Cancelar</button>
+                </form>
+    
+            <canvas id='canvas2' style="display: none; margin-left: 8%"></canvas>
+                <video autoplay="true" id="second" style="height: 300px; width: 400px; display: none; background-color:black; margin-left: 8%">
+                </video>
+                <form target="POST" method="save_photos.php">
+                    <textarea  type="text" id="base_img" name="base_img" style="display: none;"></textarea>
+                    <button style="display: none;" class="reconhecimento-facial__button" type="button" id="active2" onclick="loadCameraOne(active2)">Segunda Foto</button>
+                    <button style="display: none;" class="reconhecimento-facial__button" type="button" id="take2" onclick="takeSnapShot(take2)">Tirar foto</button>
+                    <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 2%; left: 3.4rem;" class="reconhecimento-facial__button" type="button" id="save2" onclick="saveSnapShot(save2, A)"> salvar</button>
+                    <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 35%;" class="reconhecimento-facial__button" type="button" id="again2" onclick="retakeSnapShot(again2)"> Cancelar</button>
+                </form>
+    
+            <canvas id='canvas3' style="display: none; margin-left: 8%"></canvas>
+                <video autoplay="true" id="third" style="height: 300px; width: 400px; display: none; background-color:black; margin-left: 8%">
+                </video>
+                <form target="POST" method="save_photos.php">
+                    <textarea  type="text" id="base_img" name="base_img" style="display: none;"></textarea>
+                    <button style="display: none;" class="reconhecimento-facial__button" type="button" id="active3" onclick="loadCameraOne(active3)">Terceira Foto</button>
+                    <button style="display: none;" class="reconhecimento-facial__button" type="button" id="take3" onclick="takeSnapShot(take3)">Tirar foto</button>
+                    <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 2%; left: 3.4rem;" class="reconhecimento-facial__button" type="button" id="save3" onclick="saveSnapShot(save3, A)"> salvar</button>
+                    <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 35%;" class="reconhecimento-facial__button" type="button" id="again3" onclick="retakeSnapShot(again3)"> Cancelar</button>
+                </form>
+			<!--Scripts-->
+			<script src="../assets/javascript/takeFoto.js"></script>
+		    </div>
+            </section>
+
         </main> 
         <script type="module" src="../assets/javascript/cadastro.js"></script>
 </body>
