@@ -9,11 +9,6 @@
 
         include('splash.php');
     }
-    //Remover depois de transformar em tabela
-    if (isset($_SESSION['resultado'])) {
-        print_r($_SESSION['resultado']);
-        unset($_SESSION['resultado']);
-    }
     
 ?>
 
@@ -38,14 +33,14 @@
 
     <main class="consulta">
         <h1 class="consulta__titulo">Consulte</h1>
-        <form action="../Controller/ConsultaController.php" method="get">
-        <div class="consulta__container">
-        
-            <input type="search" name="pesquisa" id="consulta__pesquisa" placeholder="Digite o RM" required>
-            <button class="consulta__botao" name="botaoPesquisa">Pesquisar</button>
-        
-        </div>
-        </form>
+        <section>
+            <div class="consulta__container">
+            
+                <input type="search" name="pesquisa" id="consulta__pesquisa" placeholder="Digite o RM">
+                <button class="consulta__botao" name="botaoPesquisa">Pesquisar</button>
+            
+            </div>
+        </section>
         
         <table class="consulta__resultado">
             <tr class="resultado__campos">
@@ -53,12 +48,15 @@
                 <th class="campos">Curso</th>
                 <th class="campos">Status</th>
             </tr>
-            <tr class="resultado__puxado">
+            <!-- <tr class="resultado__puxado">
                 <td class="puxado__nome"></td>
                 <td class="puxado__curso"></td>
                 <td class="puxado__status"></td>
-            </tr>
+            </tr> -->
         </table>
+
+        <a href="" style="border-radius: 25px 25px 25px 25px; display: none;" class="consulta__botao" id="editar" onclick= "editar(); window.open('update.php','Janela','toolbar=no,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=550,height=630,left=150,top=15'); return false;">Atualizar Foto</a>
+        <a href="" style="border-radius: 25px 25px 25px 25px; display: none;" class="consulta__botao" id="reconhecer" onclick= "window.open('reconhecer.php','Janela','toolbar=no,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=550,height=400,left=150,top=15'); return false;">Reconhecer</a>
 
         <a href="cadastro.php" target="_self">
         <button class="voltar">
@@ -68,5 +66,9 @@
         </button>
     </a>
     </main>
+
+    
+    <script src = "../assets/javascript/JQuery/jquery-3.5.1.min.js"></script>
+    <script src="../assets/javascript/pesquisa.js"></script>
 </body>
 </html>

@@ -61,8 +61,22 @@
                     <div class="rm">'. $itens[1] .'</div>
                     <div class="periodo">'. $itens[2] .'</div>
                     <div class="curso">'. $itens[3] .'</div>
-                    <div class="entradaSaida">'. $itens[4] .'/Saída</div>
+                    <div class="entradaSaida">'. $itens[4] .'</div>
                 </li>';
             }
+        }
+        
+        
+            
+
+
+    }
+    
+    if(isset($_POST['Registrar'])){
+        $registro = new Registro();
+        if ($registro->verificarRegistrosAnteriores($_POST['Registrar'])) {
+            $resultado = $registro->registrar($_POST['Registrar']);
+            unset($_POST['Registrar']);
+            //return true;
         }
     }

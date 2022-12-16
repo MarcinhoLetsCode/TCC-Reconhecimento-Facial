@@ -76,13 +76,16 @@
 
 
         function Cadastrar(){
-            $this->cadastroAlunoDAO->Cadastrar($this->rm, $this->nome, $this->email, $this->curso, $this->periodo);
+            if($this->cadastroAlunoDAO->Cadastrar($this->rm, $this->nome, $this->email, $this->curso, $this->periodo)){
+                return true;
+            }
         }
 
         function verificarRMeEmail(){
             
             if ($this->cadastroAlunoDAO->verificarRMeEmail($this->rm, $this->email)) {
                 return true;
+                
             }
             
             
