@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="../assets/css/tab_cadastro.css">
     <link rel="stylesheet" href="../assets/css/logout.css">
     <script src="../assets/javascript/manager.js" type="text/javascript"></script>
-    <title>Reconhecimento facial - Cadastro</title>
+    <title>Reconhecimento facial - Administrador</title>
 </head>
 <body>
         <?php
@@ -47,9 +47,11 @@
             <img src="../assets/imagens/logo_icon.png" alt="Logo Sistema Face ID" class="header-cadastro__image">
             <h1 class="header__title">Teste de Funcionalidades</h1>
 
-                <button name="logout" class="logout">
-                    <img  class="logoutIcon" src="../assets/imagens/logout.png" alt="Sair do Sistema">
-                </button>
+            <form action="../Controller/LoginController.php" method="get">
+            <button name="logout" class="logout">
+                <img  class="logoutIcon" src="../assets/imagens/logout.png" alt="Sair do Sistema">
+            </button>   
+            </form>
         </header>
 
         <main class="container">
@@ -57,7 +59,7 @@
             <section class="container__cadastro">
             <h1 class="header__title" style="margin-top: 5%;" >Conexão</h1>
             <button style="margin-top: 10%; margin-right: 12%; width: 60%; text-align: center" class="cadastro__consultar" onclick="windowCad()">Tela de Cadastro</button>
-            <button style="margin-top: 20%; margin-right: 12%; width: 60%; text-align: center" class="cadastro__consultar" onclick="windowId()">Reconhecimento Facil</button>
+            <button style="margin-top: 20%; margin-right: 12%; width: 60%; text-align: center" class="cadastro__consultar" onclick="windowId()">Reconhecimento Facial</button>
             <button style="margin-top: 30%; margin-right: 12%; width: 60%; text-align: center" class="cadastro__consultar" onclick="windowCon()">Consulta</button>
             <button style="margin-top: 40%; margin-right: 12%; width: 60%; text-align: center" class="cadastro__consultar" onclick="windowReg()">Registro</button>
             <h1 class="header__title" style="margin-top: 50%;">Hardware</h1>

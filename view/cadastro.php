@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="../assets/css/tab_cadastro.css">
     <link rel="stylesheet" href="../assets/css/logout.css">
     <script src="../assets/javascript/tab.js" type="text/javascript"></script>
+    <script src="../assets/javascript/sweetalert2.all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/javascript/camera.js"></script>
     <link rel="stylesheet" href="../assets/css/popup.css">
@@ -99,7 +100,7 @@
                         <div class="area__dado">
                             <label for="emailAluno" class="dado__label">Email institucional</label>
                             <input type="email" name="emailAluno" class="inputAluno dado__input" placeholder="Digite seu email institucional" id ="emailAluno">
-                            <span class="mensagem">Preencha o campo</span>
+                            <span class="mensagem" id="amail2">Preencha o campo</span>
                             <span class="mensagem" id = "mail2"></span>
                             <!--  -->
                             <?php
@@ -214,7 +215,7 @@
                         
                         <div class="area__dado">
                             <label for="cpfSeg" class="dado__label">CPF</label>
-                            <input type="text" name="cpfFuncionario" class="inputFuncionario dado__input" placeholder="Digite seu CPF" id="cpfSeg">
+                            <input onkeyup="this.value=this.value.replace(/[^\d]/,'')" maxlength="11" type="text" name="cpfFuncionario" class="inputFuncionario dado__input" placeholder="Digite seu CPF" id="cpfSeg">
                             <span class="mensagem" id="preencher">Preencha o campo</span>
                             <span class="mensagem" id="invalido">CPF Inválido!</span>
                             <!--  -->
@@ -252,7 +253,7 @@
                         <div class="area__dado">
                             <label for="telFunc" class="dado__label">Telefone</label>
                             <input type="text" name="telefoneFuncionario" id="telFunc" class="inputFuncionario dado__input" placeholder="Digite seu DDD + Telefone" maxlength="15">
-                            <span class="mensagem">Preencha o campo</span>
+                            <span class="mensagem" id="telFun">Preencha o campo</span>
                             <span class="mensagem" id="phone">Verifique o Telefone</span>
                             <!--  -->
                             <?php
@@ -268,7 +269,7 @@
                         <div class="area__dado">
                             <label for="emailFuncionario" class="dado__label">E-mail</label>
                             <input type="email" name="emailFuncionario" class="inputFuncionario dado__input" placeholder="Digite seu E-mail" id="emailFuncionario">
-                            <span class="mensagem">Preencha o campo</span>
+                            <span class="mensagem" id="fmail">Preencha o campo</span>
                             <span class="mensagem" id="mail"></span>
                             <!--  -->
                             <?php
@@ -300,7 +301,7 @@
                     <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 20%; left: 3.4rem;" class="reconhecimento-facial__button buttonCamera" type="button" id="save" onclick="saveSnapShot(save, 'A')"> salvar</button>
                     <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 22%;" class="reconhecimento-facial__button buttonCamera" type="button" id="again" onclick="retakeSnapShot(again)"> Cancelar</button>
                 </form>
-    
+                <img src="../assets/imagens/faceidFrontal.png" alt="Posicao Anatomica" style = "position: absolute; width: 35%; margin-top: 70px; display:none" id="posAn1">
             <canvas id='canvas2' style="display: none;"></canvas>
                 <video autoplay="true" id="second" style="height: 300px; width: 400px; display: none; background-color:black;">
                 </video>
@@ -311,6 +312,7 @@
                     <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 20%; left: 3.4rem;" class="reconhecimento-facial__button buttonCamera" type="button" id="save2" onclick="saveSnapShot(save2, 'A')"> salvar</button>
                     <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 22%;" class="reconhecimento-facial__button buttonCamera" type="button" id="again2" onclick="retakeSnapShot(again2)"> Cancelar</button>
                 </form>
+                <img src="../assets/imagens/faceidRigth.png" alt="Posicao Anatomica" style = "position: absolute; width: 35%; margin-top: 105px; display:none" id="posAn2">
     
             <canvas id='canvas3' style="display: none;"></canvas>
                 <video autoplay="true" id="third" style="height: 300px; width: 400px; display: none; background-color:black;">
@@ -322,11 +324,12 @@
                     <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 20%; left: 3.4rem;" class="reconhecimento-facial__button buttonCamera" type="button" id="save3" onclick="saveSnapShot(save3, 'A')"> salvar</button>
                     <button style="width: 30%; background-color: #3D4B56; padding-top: 5px; display: none; margin-left: 22%;" class="reconhecimento-facial__button buttonCamera" type="button" id="again3" onclick="retakeSnapShot(again3)"> Cancelar</button>
                 </form>
+                <img src="../assets/imagens/faceidLeft.png" alt="Posicao Anatomica" style = "position: absolute; width: 35%; margin-top: 140px; display:none" id="posAn3">
+                
 			<!--Scripts-->
 			<script src="../assets/javascript/takeFoto.js"></script>
 		    </div>
             </section>
-
         </main> 
         <script src="../assets/javascript/popup.js"></script>
         <script type="module" src="../assets/javascript/cadastro.js"></script>
